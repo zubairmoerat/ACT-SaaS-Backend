@@ -24,18 +24,28 @@
   },
   "homepage": "https://github.com/zubairmoerat/ACT-SaaS-Backend#readme",
   "dependencies": {
+    "@prisma/client": "^6.15.0",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.2",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "sodium-native": "^5.0.8",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.3.1",
+    "@types/sodium-native": "^2.3.9",
     "@typescript-eslint/eslint-plugin": "^8.42.0",
     "@typescript-eslint/parser": "^8.42.0",
     "eslint": "^9.35.0",
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
+    "prisma": "^6.15.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2"
