@@ -3,4 +3,7 @@ node_modules
 .env
 
 /dist
+
 /generated/prisma
+
+/logs
