@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { sign, verify, JwtPayload } from "jsonwebtoken";
-import type { authToken } from "../types/authToken";
+import type { authToken } from "../types/auth/authToken";
 import logger from "../utils/logger";
 import "dotenv/config";
 

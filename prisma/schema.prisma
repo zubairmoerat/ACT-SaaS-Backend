@@ -44,7 +44,7 @@ model ComplianceItem {
   company Company @relation(fields: [companyId], references: [id])
   companyId Int
   reminders Reminder[]
-  docments Document[]
+  documents Document[]
 }
 
 model Document {
