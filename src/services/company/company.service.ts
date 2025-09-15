@@ -3,7 +3,7 @@ import type { Company } from "../../../generated/prisma";
 import type { CompanyWithRelationsSafe } from "../../types/company";
 import logger from "../../utils/logger";
 
-export class companyService {
+export class CompanyService {
     async getCompanyById(id: number): Promise<CompanyWithRelationsSafe> {
         const company = await db.company.findUnique({
             where: { id },

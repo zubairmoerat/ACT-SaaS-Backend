@@ -1,13 +1,14 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, RequestHandler } from "express";
 import { sign, verify, JwtPayload } from "jsonwebtoken";
 import type { authToken } from "../types/auth/authToken";
+import { RoleName, PermissionKey, DEFAULT_ROLE_PERMISSIONS } from "../types/auth/roles";
 import logger from "../utils/logger";
 import "dotenv/config";
 
 interface AuthenticatedUser extends JwtPayload {
     id: number;
     companyId: number;
-    role: string;
+    role: RoleName;
 }
 
 declare global {
@@ -69,4 +70,41 @@ export function authenticateToken(req: Request, res:Response, next:NextFunction)
             msg: "Authentication failed. Please try again."
         });
     }
+};
+
+export const requireRole = (role: RoleName): RequestHandler => {
+    return ( req: Request, res: Response, next: NextFunction ) => {
+        const user = req.user;
+        if(!user){
+            return res.status(401).json({
+                message: 'Unauthenticated'
+            });
+        }
+        if(user.role !== role){
+            logger.warn(`User:${user.id} with role:${user.role} attempted access requiring role=${role}`);
+            return res.status(403).json({
+                message: 'Forbidden.'
+            });
+        }
+        next();
+    };
+};
+
+export const requirePermission = (permission: PermissionKey): RequestHandler => {
+    return (req:Request, res:Response, next:NextFunction) => {
+        const user = req.user;
+        if(!user){
+            return res.status(401).json({
+                message: 'Unauthenticated.'
+            });
+        }
+        const permissions = DEFAULT_ROLE_PERMISSIONS[user.role];
+        if(!permissions || !permissions[permission]){
+            logger.warn(`User:${user.id} with role:${user.role} denied permission=${permission}`);
+            return res.status(403).json({
+                message: 'Forbidden.'
+            });
+        }
+        next();
+    };
 };
